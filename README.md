@@ -1,5 +1,4 @@
 # archiso-batterycheck
-Arch disk image to print out battery information using removable media
+Archiso config to automatically print out battery information on boot. Derived from the 'baseline' config.
 
-## Archiso Baseline Config
-https://github.com/archlinux/archiso/tree/master/configs/baseline
+### https://github.com/archlinux/archiso/tree/master/configs/baseline
