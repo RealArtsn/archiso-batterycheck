@@ -4,5 +4,4 @@ linux-firmware
 mkinitcpio
 mkinitcpio-archiso
 syslinux
-upower
 pv
