@@ -1,6 +1,6 @@
 #!/bin/bash
 # Iterate through battery devices and print health data
-echo Joel\'s Battery Checker v0.2
+echo Joel\'s Battery Checker v0.2.0
 echo
 echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
 echo Model: $(cat /sys/devices/virtual/dmi/id/product_name)
@@ -14,13 +14,19 @@ if ls /sys/class/power_supply | grep --quiet BAT; then
     for batdir in /sys/class/power_supply/BAT*; do
         energy_full=$(cat $batdir/energy_full)
         energy_design=$(cat $batdir/energy_full_design)
-        capacity_percent=$(echo $energy_full $energy_design | awk '{printf "%.1f\n", ($1 / $2) * 100}')%
+        capacity_percent=$(echo $energy_full $energy_design | awk '{printf "%.0f\n", ($1 / $2) * 100}')
         echo Battery model: $(cat $batdir/model_name)
         echo .  Current charge: $(cat $batdir/capacity)% \($(cat $batdir/status)\)
         echo .  Full capacity: $energy_full
         echo .  Design capacity: $energy_design
-        echo .  Battery heath: ${bold}$capacity_percent${normal}
-        echo
+        echo -n .  Battery heath:\ 
+        # color battery health based on greater or less than 80
+        if (($capacity_percent > 79)); then
+            setterm -foreground green
+        else
+            setterm -foreground red
+        fi
+        echo ${bold}$capacity_percent%${normal}
     done
 else
     echo "No battery info detected"
