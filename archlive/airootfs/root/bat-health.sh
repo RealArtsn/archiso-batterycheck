@@ -11,12 +11,12 @@ echo
 bold=$(tput bold) #bold text
 normal=$(tput sgr0) #normal text
 if ls /sys/class/power_supply | grep --quiet BAT; then
-    for batdir in /sys/class/power_supply/BAT*; do
-        energy_full=$(cat $batdir/energy_full)
-        energy_design=$(cat $batdir/energy_full_design)
+    for dev in $(upower -e | grep BAT); do
+        energy_full=$(upower -i $dev | grep energy-full: | awk '{print $2$3}')
+        energy_design=$(upower -i $dev | grep energy-full-design: | awk '{print $2$3}')
         capacity_percent=$(echo $energy_full $energy_design | awk '{printf "%.0f\n", ($1 / $2) * 100}')
-        echo Battery model: $(cat $batdir/model_name)
-        echo .  Current charge: $(cat $batdir/capacity)% \($(cat $batdir/status)\)
+        echo Battery model: $(upower -i $dev | grep model: | awk '{print $2}')
+        echo .  Current charge: $(upower -i $dev | grep percentage: | awk '{print $2$3}') \($(upower -i $dev | grep state: | awk '{print $2}')\)
         echo .  Full capacity: $energy_full
         echo .  Design capacity: $energy_design
         echo -n .  Battery heath:\ 
