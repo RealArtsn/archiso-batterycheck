@@ -1,6 +1,6 @@
 #!/bin/bash
 # Iterate through battery devices and print health data
-echo Joel\'s Battery Checker v0.2.0
+echo Joel\'s Battery Checker v0.2.1
 echo
 echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
 echo Model: $(cat /sys/devices/virtual/dmi/id/product_name)
