@@ -19,7 +19,7 @@ if ls /sys/class/power_supply | grep --quiet BAT; then
         echo .  Current charge: $(upower -i $dev | grep percentage: | awk '{print $2$3}') \($(upower -i $dev | grep state: | awk '{print $2}')\)
         echo .  Full capacity: $energy_full
         echo .  Design capacity: $energy_design
-        echo -n .  Battery heath:\ 
+        echo -n .  Battery health:\ 
         # color battery health based on greater or less than 80
         if (($capacity_percent > 79)); then
             setterm -foreground green
