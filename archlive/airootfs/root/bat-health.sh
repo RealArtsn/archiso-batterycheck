@@ -9,7 +9,7 @@ echo CPU: $(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -c 14-)
 echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
 echo
 echo Attached Storage:
-lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL
+lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | sed '/loop/,+1 d'
 echo 
 bold=$(tput bold) #bold text
 normal=$(tput sgr0) #normal text
