@@ -1,12 +1,15 @@
 #!/bin/bash
 # Iterate through battery devices and print health data
-echo Joel\'s Battery Checker v0.2.1
+echo Joel\'s Battery Checker v0.3.0
 echo
 echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
 echo Model: $(cat /sys/devices/virtual/dmi/id/product_name)
 echo Serial: $(cat /sys/devices/virtual/dmi/id/product_serial) # requires root
 echo CPU: $(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -c 14-)
 echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
+echo
+echo Attached Storage:
+lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL
 echo 
 bold=$(tput bold) #bold text
 normal=$(tput sgr0) #normal text
