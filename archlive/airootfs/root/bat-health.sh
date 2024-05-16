@@ -1,5 +1,6 @@
 #!/bin/bash
 # Iterate through battery devices and print health data
+setterm -foreground white # brighten it up a little bit
 dmesg --console-off # suppress error output
 echo Joel\'s Battery Checker v0.3.0
 echo
@@ -10,7 +11,10 @@ echo CPU: $(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -c 14-)
 echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
 echo
 echo Attached Storage:
+setterm -foreground green
 lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | sed '/loop/,+1 d'
+setterm -foreground white
+
 echo 
 bold=$(tput bold) #bold text
 normal=$(tput sgr0) #normal text
