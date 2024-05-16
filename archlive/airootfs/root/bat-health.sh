@@ -1,5 +1,6 @@
 #!/bin/bash
 # Iterate through battery devices and print health data
+dmesg --console-off # suppress error output
 echo Joel\'s Battery Checker v0.3.0
 echo
 echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
