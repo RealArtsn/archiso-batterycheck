@@ -12,7 +12,7 @@ echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
 echo
 echo Attached Storage:
 setterm -foreground green
-lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | sed '/loop/,+1 d'
+lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | grep -v '^loop' # exclude virtual loop
 setterm -foreground white
 
 echo 
