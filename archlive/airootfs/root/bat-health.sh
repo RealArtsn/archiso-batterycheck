@@ -15,7 +15,7 @@ echo Attached Storage:
 echo
 setterm -foreground green
 # lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | grep -v '^loop' # exclude virtual loop
-fdisk -l | grep -P '(Disk\s[m/])' | awk ' {print;} NR % 2 == 0 { print ""; } '
+fdisk -l | grep -P '(Disk\s[m/])' | grep -v '/dev/loop' | awk ' {print;} NR % 2 == 0 { print ""; } '
 setterm -foreground white
 
 echo 
