@@ -1,8 +1,9 @@
 #!/bin/bash
+VERSION=v0.4.1
 # Iterate through battery devices and print health data
 setterm -foreground white # brighten it up a little bit
 dmesg --console-off # suppress error output
-echo Joel\'s Battery Checker v0.4.1
+echo Joel\'s Battery Checker $VERSION
 echo
 echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
 echo Model: $(cat /sys/devices/virtual/dmi/id/product_name)
@@ -17,7 +18,11 @@ setterm -foreground green
 # lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | grep -v '^loop' # exclude virtual loop
 fdisk -l | grep -P '(Disk\s[m/])' | grep -v '/dev/loop' | awk ' {print;} NR % 2 == 0 { print ""; } '
 setterm -foreground white
-
+if fdisk -l | grep -qP '[mM]icrosoft|[wW]indows'; then
+    setterm -foreground yellow
+    echo 'Possible Windows partition detected!'
+    setterm -foreground white
+fi
 echo 
 bold=$(tput bold) #bold text
 normal=$(tput sgr0) #normal text
@@ -43,7 +48,6 @@ else
     echo "No battery info detected"
     echo
 fi
-
 
 echo Press Enter to shut down...
 read
