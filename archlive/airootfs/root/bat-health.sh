@@ -9,7 +9,7 @@ echo Family: $(cat /sys/devices/virtual/dmi/id/product_family)
 echo Model: $(cat /sys/devices/virtual/dmi/id/product_name)
 echo Serial: $(cat /sys/devices/virtual/dmi/id/product_serial) # requires root
 echo CPU: $(cat /proc/cpuinfo | grep 'model name' | head -n 1 | cut -c 14-)
-neofetch gpu | sed "s/gpu/GPU/g" # get GPU info
+fastfetch --logo none | grep GPU | xargs
 echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
 echo
 echo Attached Storage:
