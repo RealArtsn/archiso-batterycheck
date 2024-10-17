@@ -51,4 +51,5 @@ fi
 
 echo Press Enter to shut down...
 read
-poweroff
+# shut down immediately
+halt --force --force --poweroff
