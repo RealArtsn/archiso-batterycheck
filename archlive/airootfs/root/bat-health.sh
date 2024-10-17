@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=v0.4.1
+VERSION=v0.4.2
 # Iterate through battery devices and print health data
 setterm -foreground white # brighten it up a little bit
 dmesg --console-off # suppress error output
