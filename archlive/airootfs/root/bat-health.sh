@@ -18,9 +18,7 @@ setterm -foreground green
 lsblk_info () {
     lsblk $1 --nodeps --noheadings --output $2  
 }
-red_no() {
-    setterm --foreground red;echo -n 'NO';setterm --foreground green
-}
+
 for device in $(lsblk --nodeps --noheadings --path --output name --exclude 7); do 
     if lsblk_info $device rota | grep --quiet 0; then
         SSD='YES'
