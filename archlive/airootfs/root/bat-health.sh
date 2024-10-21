@@ -1,5 +1,5 @@
 #!/bin/bash
-VERSION=v0.4.2
+VERSION=v0.4.3
 # Iterate through battery devices and print health data
 setterm -foreground white # brighten it up a little bit
 dmesg --console-off # suppress error output
@@ -13,11 +13,30 @@ fastfetch --logo none | grep GPU | xargs
 echo Memory: $(free -h | sed -n '2p' | awk '{printf $2}')
 echo
 echo Attached Storage:
-echo
 setterm -foreground green
-# lsblk --noheadings --nodeps --list --output NAME,SIZE,MODEL,SERIAL | grep -v '^loop' # exclude virtual loop
-fdisk -l | grep -P '(Disk\s[m/])' | grep -v '/dev/loop' | awk ' {print;} NR % 2 == 0 { print ""; } '
+# print storage device info
+lsblk_info () {
+    lsblk $1 --nodeps --noheadings --output $2  
+}
+red_no() {
+    setterm --foreground red;echo -n 'NO';setterm --foreground green
+}
+for device in $(lsblk --nodeps --noheadings --path --output name --exclude 7); do 
+    if lsblk_info $device rota | grep --quiet 0; then
+        SSD='YES'
+    else
+        SSD=$(setterm --foreground red; echo -n 'NO'; setterm --foreground green)
+    fi
+    echo $device
+    echo -- SIZE: $(lsblk_info $device size) $(smartctl -a $device | grep 'Total NVM Capacity' | awk '{ print $5$6 }') 
+    echo -- MODEL: $(lsblk_info $device model) 
+    echo -- SERIAL: $(lsblk_info $device serial)
+    echo -- SSD: $SSD
+done
+
 setterm -foreground white
+
+# detect Windows partition and warn
 if fdisk -l | grep -qP '[mM]icrosoft|[wW]indows'; then
     setterm -foreground yellow
     echo 'Possible Windows partition detected!'
