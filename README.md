@@ -1,6 +1,6 @@
 # Joel's Battery Checker
 ## Purpose
-Derived from the [Arch Linux baseline install iso](https://github.com/archlinux/archiso/tree/master/configs/baseline), this bootable image was originally intended as a simple, rapid, vendor-agnostic method for a user to check the health of a laptop battery. In some circumstances the user only needs to plug in a USB stick, power on the machine, and wait. The project has since expanded to leverage `neofetch` and `upower` packages to combine useful system specifications in a single, easily-accessible interface. 
+Derived from the [Arch Linux baseline install iso](https://github.com/archlinux/archiso/tree/master/configs/baseline), this bootable image was originally intended as a simple, rapid, vendor-agnostic method for a user to check the health of a laptop battery. In some circumstances the user only needs to plug in a USB stick, power on the machine, and wait. The project has since expanded to leverage `fastfetch` and `upower` packages to combine useful system specifications in a single, easily-accessible interface. 
 
 ![Specs Output](screenshot.png)
 
